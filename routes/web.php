@@ -42,6 +42,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('access', ['uses' => 'AccessController@showAllAccess']);
     
     
+    /******* Control Group Selection *********** */
+    $router->post('control-group-selection-execute',   ['uses' => 'ControlGroupSelectionController@process']);
+    $router->post('control-group-selection-filesList', ['uses' => 'ControlGroupSelectionController@getFilesList']);
+    $router->post('control-group-selection-variables', ['uses' => 'ControlGroupSelectionController@getVariables']);
+
     /******* Dummy *********** */
     $router->get('authors', ['uses' => 'AuthorController@showAllAuthors']);
     $router->get('authors/{id}', ['uses' => 'AuthorController@showOneAuthor']);

@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function showAllUsers(){
         
         $user = Auth::user()->get();
-        $data['data'] = User::select('id','username','first_name','last_name', 'email', 'phone', 'role_id')->get();
+        $data['data'] = User::select('id','username','first_name','last_name', 'email', 'phone', 'role_id', 'role_type')->get();
         //TODO
         $data['meta'] = array(
             "page" => 1,
@@ -40,7 +40,7 @@ class UsersController extends Controller
 
     public function showOneUser($id){
 
-        $data = User::select('id','username','first_name','last_name', 'email', 'phone', 'role_id')->where('id', $id)->first();
+        $data = User::select('id','username','first_name','last_name', 'email', 'phone', 'role_id', 'role_type')->where('id', $id)->first();
         return response()->json($data, 200);
         
     }
@@ -56,8 +56,8 @@ class UsersController extends Controller
 
         $this->validate($request, [
             'username' => 'required|unique:users,username',
-            'email' => 'required|unique:users',
-            'phone' => 'required|unique:users',
+            'email' => 'required|unique:users,email',
+            'phone' => 'required|unique:users,phone',
         ]);
         $data = User::create($request->all());
         return response()->json(['msg' => 'Successfully Created', 'status' => 'success'], 201);
